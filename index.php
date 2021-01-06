@@ -314,3 +314,30 @@ $this->session->userdata('activeUserId');
 
 	
 }
+	
+// 	img update
+	
+	if($_FILES['category_image']['size']>0)
+					{
+						$coverData = $this->do_upload('category_image','img');
+						$cover = $coverData['upload_data']['file_name'];
+					}
+					else{
+						$cover = NULL;
+					}
+	
+// 	modal img update
+	
+	public function updateCategorynew($cover=NULL)
+		{
+		$this->db->set('category_parent_id',$this->input->post('parentcat'));
+		
+
+			if ($cover!=NULL) {
+				$this->db->set('image',$cover);
+			}
+			$this->db->where('id',$this->input->post('id'));
+			$this->db->update('category');
+
+			// echo $this->db->last_query();
+		}
